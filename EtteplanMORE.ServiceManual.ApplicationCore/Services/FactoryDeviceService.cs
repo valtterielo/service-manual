@@ -11,7 +11,7 @@ namespace EtteplanMORE.ServiceManual.ApplicationCore.Services
     public class FactoryDeviceService : IFactoryDeviceService
     {
         /// <summary>
-        ///     Remove this. Temporary car storage before proper data storage is implemented.
+        ///     Remove this. Temporary device storage before proper data storage is implemented.
         /// </summary>
         private static readonly ImmutableList<FactoryDevice> TemporaryDevices = new List<FactoryDevice>
         {
