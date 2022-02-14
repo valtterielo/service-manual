@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using EtteplanMORE.ServiceManual.ApplicationCore.Interfaces;
+using EtteplanMORE.ServiceManual.ApplicationCore.Services;
 
-namespace EtteplanMORE.ServiceManual.Web
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            BuildWebHost(args).Run();
-        }
+var builder = WebApplication.CreateBuilder(args);
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
-    }
-}
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<IFactoryDeviceService, FactoryDeviceService>();
+
+var app = builder.Build();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
