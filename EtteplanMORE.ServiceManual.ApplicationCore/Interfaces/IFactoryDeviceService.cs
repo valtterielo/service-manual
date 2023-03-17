@@ -10,5 +10,11 @@ namespace EtteplanMORE.ServiceManual.ApplicationCore.Interfaces
         Task<IEnumerable<FactoryDevice>> GetAll();
 
         Task<FactoryDevice> Get(int id);
+
+        Task<IEnumerable<FactoryDevice>> AddTask(FactoryDevice factoryDevice);
+
+        Task<FactoryDevice> EditTask(FactoryDevice factoryDevice);
+
+        Task<IEnumerable<FactoryDevice>> DeleteTask(int id);
     }
 }
