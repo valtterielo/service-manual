@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 # Service Manual
 
-Service Manual is a .net rest api project aiming to simulate a real world scenario where users need an api solution for tracking maintenance tasks for machines that need maintenance. The project consist of 2 tables that have a many to one relationship.
+Service Manual is a .net rest api project aiming to simulate a real world scenario where users need an api solution for tracking maintenance tasks. The project consists of 2 tables that have a many to one relationship. Each maintenance task has one assigned factory device. Factory devices can have multiple maintenance tasks associated with them.
 
 ## Installation
 
