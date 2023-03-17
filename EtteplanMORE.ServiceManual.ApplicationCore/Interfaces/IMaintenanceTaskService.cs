@@ -17,7 +17,7 @@ namespace EtteplanMORE.ServiceManual.ApplicationCore.Interfaces
 
         Task<IEnumerable<MaintenanceTask>> DeleteTask(int id);
 
-        Task<IEnumerable<MaintenanceTask>> FilterByDevice();
+        Task<IEnumerable<MaintenanceTask>> FilterByDevice(int id);
     }
 }
 

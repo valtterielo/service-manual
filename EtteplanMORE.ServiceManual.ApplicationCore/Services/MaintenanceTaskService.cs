@@ -52,7 +52,7 @@ namespace EtteplanMORE.ServiceManual.ApplicationCore.Services
         }
 
 
-        //ADD A TASK TO THE DB
+        //ADD A MAINTENANCE TASK TO THE DB
         public async Task<IEnumerable<MaintenanceTask>> AddTask(MaintenanceTask task)
         {
             if (task.status != 0 && task.severity != 0 && task.Description != "")
@@ -76,7 +76,7 @@ namespace EtteplanMORE.ServiceManual.ApplicationCore.Services
         }
 
 
-        //DELETE TASK BY IT'S ID
+        //DELETE MAINTENANCE TASK BY IT'S ID
         public async Task<IEnumerable<MaintenanceTask>> DeleteTask(int id)
         {
             MaintenanceTask task = await GetTask(id);
@@ -119,10 +119,27 @@ namespace EtteplanMORE.ServiceManual.ApplicationCore.Services
 
         }
 
-
-        public async Task<IEnumerable<MaintenanceTask>> FilterByDevice()
+        //LIST MAINTENANCE TASKS BASED ON TARGET DEVICE
+        public async Task<IEnumerable<MaintenanceTask>> FilterByDevice(int id)
         {
-            throw new NotImplementedException();
+            List<MaintenanceTask> maintenanceTasks = await _context.MaintenanceTasks.ToListAsync();
+            List<MaintenanceTask> filteredTasks = new List<MaintenanceTask>();
+            foreach(MaintenanceTask task in maintenanceTasks)
+            {
+                if(task.FactoryDeviceId == id)
+                {
+                    filteredTasks.Add(task);
+                }
+            }
+            //for each maintenance task, add a factory device based on the foreign key
+            foreach (MaintenanceTask task in filteredTasks)
+            {
+                task.factoryDevice = await _context.FactoryDevices
+                .Where(fd => fd.Id == task.FactoryDeviceId)
+                .FirstOrDefaultAsync();
+            }
+
+            return filteredTasks.OrderBy(task => task.severity).ThenBy(task => task.TimeStamp);
         }
     }
 } 

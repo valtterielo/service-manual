@@ -69,6 +69,25 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Filter/deviceId")]
+        public async Task<ActionResult> GetByDevice(int deviceId)
+        {
+            var tasks = await _maintenanceTaskService.FilterByDevice(deviceId);
+
+            var taskDtos = tasks.Select(mt => new MaintenanceTaskDto
+            {
+                Id = mt.Id,
+                Description = mt.Description,
+                severity = mt.severity,
+                status = mt.status,
+                FactoryDeviceId = mt.FactoryDeviceId,
+                factoryDevice = mt.factoryDevice
+            });
+            return Ok(taskDtos);
+        }
+
+
         /// <summary>
         ///     HTTP POST: api/maintenancetasks/
         /// </summary>
